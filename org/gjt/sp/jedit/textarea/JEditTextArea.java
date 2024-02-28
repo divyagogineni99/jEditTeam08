@@ -85,6 +85,21 @@ public class JEditTextArea extends TextArea
 		super.dispose();
 	} //}}}
 
+	@Override
+	public void toggleScrollBarVisibility() {
+		if (!areScrollbarsVisible()) {
+			horizontal.setVisible(true);
+			verticalBox.setVisible(true);
+		}else{
+			horizontal.setVisible(false);
+			verticalBox.setVisible(false);
+		}
+	}
+	@Override
+	public boolean areScrollbarsVisible(){
+		return horizontal.isVisible() || verticalBox.isVisible();
+	}
+
 	//{{{ getFoldPainter() method
 	@Override
 	public FoldPainter getFoldPainter()

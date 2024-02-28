@@ -151,6 +151,9 @@ public abstract class TextArea extends JPanel
 		// (eg, from the recent file list)
 		focusedComponent = this;
 	} //}}}
+	public abstract void toggleScrollBarVisibility();
+
+	public abstract boolean areScrollbarsVisible();
 
 	//{{{ getFoldPainter() method
 	public FoldPainter getFoldPainter()
@@ -5274,9 +5277,9 @@ loop:		for(int i = lineNo - 1; i >= 0; i--)
 	private boolean quickCopy;
 
 	// JDiff, error list add stuff here
-	private final Box verticalBox;
+	public final Box verticalBox;
 	private final JScrollBar vertical;
-	private final JScrollBar horizontal;
+	public final JScrollBar horizontal;
 
 	protected JEditBuffer buffer;
 

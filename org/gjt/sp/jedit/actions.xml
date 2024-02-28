@@ -1539,6 +1539,14 @@
 	        view.isFullScreenMode();
 	</IS_SELECTED>
 </ACTION>
+	<ACTION NAME="toggle-hide-scrollbars">
+		<CODE>
+			view.toggleHideScrollbars();
+		</CODE>
+		<IS_SELECTED>
+			view.areScrollbarsVisible();
+		</IS_SELECTED>
+	</ACTION>
 
 <ACTION NAME="toggle-gutter">
 	<CODE>
