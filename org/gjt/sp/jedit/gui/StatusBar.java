@@ -355,6 +355,10 @@ public class StatusBar extends JPanel
 			int caretPosition = textArea.getCaretPosition();
 			int currLine = textArea.getCaretLine();
 
+			String lineText = textArea.getLineText(currLine);
+			//int whiteSpaces = text
+
+
 			// there must be a better way of fixing this...
 			// the problem is that this method can sometimes
 			// be called as a result of a text area scroll
@@ -370,6 +374,28 @@ public class StatusBar extends JPanel
 				return;
 
 			int bufferLength = buffer.getLength();
+
+			CharSequence textContent = buffer.getTextContext();
+
+			//to calculate offset
+			int wordOffset = 0;
+
+			for (int i = 0; i < caretPosition; i++) {
+				if (Character.isWhitespace(textContent.charAt(i+1))) {
+					wordOffset++;
+				}
+			}
+
+
+			//to get total number of words
+			int totalWords = 1; // Initialize with 1 to account for the last word
+
+			for (int i = 0; i < textContent.length(); i++) {
+				if (Character.isWhitespace(textContent.charAt(i))) {
+					totalWords++;
+				}
+			}
+
 
 			buffer.getText(start,dot,seg);
 			int virtualPosition = StandardUtilities.getVirtualWidth(seg,
@@ -404,6 +430,12 @@ public class StatusBar extends JPanel
 				buf.append(caretPosition);
 				buf.append('/');
 				buf.append(bufferLength);
+				buf.append(')');
+
+				buf.append('(');
+				buf.append(wordOffset);
+				buf.append('/');
+				buf.append(totalWords);
 				buf.append(')');
 			}
 			else if (jEdit.getBooleanProperty("view.status.show-caret-offset", true))
