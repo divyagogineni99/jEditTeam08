@@ -380,6 +380,7 @@ view=new-view \
 	 toggle-statusbar \
 	 toggle-gutter \
 	 toggle-buffer-switcher \
+	 toggle-hide-scrollbars \
 	 - \
 	 %scrolling \
 	 %splitting \

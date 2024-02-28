@@ -477,6 +477,17 @@ public class StandaloneTextArea extends TextArea
 	} //}}}
 
 	//{{{ propertiesChanged() method
+
+	@Override
+	public void toggleScrollBarVisibility() {
+
+	}
+
+	@Override
+	public boolean areScrollbarsVisible() {
+		return false;
+	}
+
 	/**
 	 * Reinitializes the textarea by reading the properties from the property manager
 	 */

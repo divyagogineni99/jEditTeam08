@@ -2350,4 +2350,14 @@ loop:		while (true)
 	}//}}}
 	 //}}}
 
+	public void toggleHideScrollbars(){
+		JEditTextArea textArea = getTextArea();
+		boolean scrollbarsVisible = areScrollbarsVisible();
+		textArea.toggleScrollBarVisibility();
+	}
+	public boolean areScrollbarsVisible(){
+		JEditTextArea textArea = getTextArea();
+		return textArea.areScrollbarsVisible();
+	}
+
 }
