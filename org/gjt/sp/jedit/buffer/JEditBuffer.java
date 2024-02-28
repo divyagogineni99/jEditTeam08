@@ -318,6 +318,10 @@ public class JEditBuffer
 		return contentMgr.getLength();
 	} //}}}
 
+	public CharSequence getTextContext(){
+		return contentMgr.getSegment(0, contentMgr.getLength());
+	}
+
 	//{{{ getLineCount() method
 	/**
 	 * @return the number of physical lines in the buffer.
