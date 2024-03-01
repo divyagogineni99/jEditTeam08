@@ -377,22 +377,49 @@ public class StatusBar extends JPanel
 
 			CharSequence textContent = buffer.getTextContext();
 
-			//to calculate offset
 			int wordOffset = 0;
 
-			for (int i = 0; i < caretPosition; i++) {
-				if (Character.isWhitespace(textContent.charAt(i+1))) {
-					wordOffset++;
+			// Check if the document is empty
+			if (textContent.toString().trim().length() > 0) {
+				for (int i = 0; i < caretPosition; i++) {
+					// Check if the caret is at the beginning of the document
+					if (i == 0 && !Character.isWhitespace(textContent.charAt(i))) {
+						wordOffset++;
+					}
+
+					// Check for whitespace to count words
+					if (Character.isWhitespace(textContent.charAt(i)) && (i + 1 < textContent.length()) && !Character.isWhitespace(textContent.charAt(i + 1))) {
+						wordOffset++;
+					}
 				}
 			}
 
 
-			//to get total number of words
-			int totalWords = 1; // Initialize with 1 to account for the last word
 
-			for (int i = 0; i < textContent.length(); i++) {
-				if (Character.isWhitespace(textContent.charAt(i))) {
-					totalWords++;
+			int totalWords = 0;
+
+			// Check if the document is not empty
+			if (textContent.toString().trim().length() > 0) {
+				boolean inWord = !Character.isWhitespace(textContent.charAt(0)); // Check if the first character is not whitespace
+
+				// Iterate through the document
+				for (int i = 0; i < textContent.length(); i++) {
+					char currentChar = textContent.charAt(i);
+					char nextChar = (i + 1 < textContent.length()) ? textContent.charAt(i + 1) : '\0'; // '\0' represents end of the CharSequence
+
+					// Check if current character is whitespace
+					boolean isWhitespace = Character.isWhitespace(currentChar);
+
+					// Check if next character is whitespace or if it's the end of the CharSequence
+					boolean nextIsWhitespaceOrEnd = (nextChar == '\0' || Character.isWhitespace(nextChar));
+
+					// Update word count if transitioning from a non-whitespace character to whitespace or the end of CharSequence
+					if (inWord && (isWhitespace || nextIsWhitespaceOrEnd)) {
+						totalWords++;
+						inWord = false; // Reset flag
+					} else if (!inWord && !isWhitespace) {
+						inWord = true; // Start of a new word
+					}
 				}
 			}
 
