@@ -98,7 +98,7 @@ public class RecentFilesProvider implements DynamicMenuProvider
 			public void keyReleased(KeyEvent e)
 			{
 				String typedText = text.getText();
-				boolean filter = (typedText.length() > 0);
+				boolean filter = (!typedText.isEmpty());
 				Pattern pattern = null;
 				if (filter)
 				{
@@ -115,8 +115,7 @@ public class RecentFilesProvider implements DynamicMenuProvider
 				{
 					for (JMenuItem recent : menuItems)
 					{
-						recent.setEnabled(filter ?
-							pattern.matcher(recent.getText()).matches() : true);
+						recent.setEnabled(!filter || pattern.matcher(recent.getText()).matches());
 					}
 				}
 				catch(PatternSyntaxException re)
