@@ -98,14 +98,14 @@ public class RecentFilesProvider implements DynamicMenuProvider
 			public void keyReleased(KeyEvent e)
 			{
 				String typedText = text.getText();
-				boolean filter = (typedText.length() > 0);
+				boolean filter = (!typedText.isEmpty());
 				Pattern pattern = null;
 				if (filter)
 				{
 					String regex = typedText;
 					if ((! typedText.contains("*")) && (! typedText.contains("?")))
 					{
-						// Old style (before jEdit 4.3pre18): Match start of file name
+						// New style (after jEdit 4.3pre18): Match any part of the file name
 						regex = "*" + regex + "*";
 					}
 					pattern = Pattern.compile(StandardUtilities.globToRE(regex),
@@ -115,8 +115,7 @@ public class RecentFilesProvider implements DynamicMenuProvider
 				{
 					for (JMenuItem recent : menuItems)
 					{
-						recent.setEnabled(filter ?
-							pattern.matcher(recent.getText()).matches() : true);
+						recent.setEnabled(!filter || pattern.matcher(recent.getText()).matches());
 					}
 				}
 				catch(PatternSyntaxException re)
